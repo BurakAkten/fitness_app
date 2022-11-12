@@ -8,6 +8,16 @@ class ExerciseViewModel extends BaseViewModel {
   final ExerciseModel? exercise;
   ExerciseViewModel({required this.service, this.exercise});
 
+  String? errorMessage;
+
   @override
   FutureOr<void> init() async {}
+
+  Future<bool> saveExercise() async {
+    isLoading = true;
+    var isSaved = await service.saveExercise(exercise); //todo update exercise with given
+    if (!isSaved) errorMessage = "Not Saved";
+    isLoading = false;
+    return isSaved;
+  }
 }

@@ -1,13 +1,15 @@
 class ExerciseModel {
+  int? id;
   final String? name;
   final int? setCount;
   final int? setRepeat;
   final double? weight;
   final int? weightCount;
 
-  ExerciseModel({this.name, this.setCount, this.setRepeat, this.weight, this.weightCount});
+  ExerciseModel({this.id, this.name, this.setCount, this.setRepeat, this.weight, this.weightCount});
 
   factory ExerciseModel.fromJson(Map<String, dynamic> data) => ExerciseModel(
+        id: data["ID"],
         name: data["NAME"],
         setCount: data["SET_COUNT"],
         setRepeat: data["SET_REPEAT"],
@@ -16,6 +18,7 @@ class ExerciseModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "ID": id,
         "NAME": name,
         "SET_COUNT": setCount,
         "SET_REPEAT": setRepeat,
