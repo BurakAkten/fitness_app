@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter_project_base/flutter_project_base.dart';
-import '../../../domain/exercise_model.dart';
+import '../../../domain/models/exercise_model.dart';
 import '../exercises_service.dart';
 
 class ExercisesViewModel extends BaseViewModel {
@@ -9,14 +9,37 @@ class ExercisesViewModel extends BaseViewModel {
 
   List<ExerciseModel> exercises = [];
 
+  String? errorMessage;
+
   @override
   FutureOr<void> init() async {
-    await _setExercises();
+    await setExercises();
   }
 
-  Future<void> _setExercises() async {
+  Future<void> setExercises() async {
+    errorMessage = null;
     isLoading = true;
-    exercises = await service.getExercises();
+    try {
+      exercises = await service.getExercises();
+      reloadState();
+    } catch (e) {
+      errorMessage = e.toString();
+    }
     isLoading = false;
+  }
+
+  Future<bool> delete(ExerciseModel model) async {
+    var result = false;
+    errorMessage = null;
+    isLoading = true;
+    try {
+      result = await service.deleteExercise(model);
+      if (result) exercises.removeWhere((element) => element.id == model.id);
+      reloadState();
+    } catch (e) {
+      errorMessage = e.toString();
+    }
+    isLoading = false;
+    return result;
   }
 }

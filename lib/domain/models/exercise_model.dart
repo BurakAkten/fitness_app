@@ -13,7 +13,7 @@ class ExerciseModel {
         name: data["NAME"],
         setCount: data["SET_COUNT"],
         setRepeat: data["SET_REPEAT"],
-        weight: data["WEIGHT"],
+        weight: data["WEIGHT"] != null ? double.tryParse(data["WEIGHT"].toString()) : null,
         weightCount: data["WEIGHT_COUNT"],
       );
 
@@ -28,5 +28,17 @@ class ExerciseModel {
 
   static List<ExerciseModel> listFromJson(List<dynamic>? json) {
     return json == null ? <ExerciseModel>[] : json.map((value) => ExerciseModel.fromJson(value)).toList();
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is ExerciseModel) {
+      return this.weight == other.weight &&
+          this.weightCount == other.weightCount &&
+          this.setRepeat == other.setRepeat &&
+          this.setCount == other.setCount &&
+          this.name == other.name;
+    }
+    return false;
   }
 }

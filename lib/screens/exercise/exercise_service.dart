@@ -1,4 +1,4 @@
-import '../../domain/exercise_model.dart';
+import '../../domain/models/exercise_model.dart';
 import '../../utils/db_util.dart';
 
 class ExerciseService {

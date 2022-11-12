@@ -1,4 +1,4 @@
-import 'package:fitness_app/domain/exercise_model.dart';
+import 'package:fitness_app/domain/models/exercise_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
