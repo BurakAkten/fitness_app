@@ -5,7 +5,7 @@ import '../../../domain/models/exercise_model.dart';
 import '../exercise_service.dart';
 
 class ExerciseViewModel extends BaseViewModel {
-  final List<double> weights = [0, 3, 5, 10, 12.5, 15, 15.5, 20];
+  final List<double> weights = [3, 5, 10, 12.5, 15, 15.5, 20];
   final ExerciseService service;
   final ExerciseModel? exercise;
   ExerciseViewModel({required this.service, this.exercise});
@@ -47,7 +47,7 @@ class ExerciseViewModel extends BaseViewModel {
       setsCount != null &&
       setsRepetition != null &&
       selectedExerciseType != null &&
-      (weight != null ? (weightCount != null && weightCount! > 0) : true) &&
+      (weight != null || (weight != null && weight! > 0.0) ? (weightCount != null && weightCount! > 0) : true) &&
       !(exercise == exerciseModel);
   ExerciseModel get exerciseModel => ExerciseModel(
         weight: weight,
