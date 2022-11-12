@@ -18,11 +18,11 @@ class ExercisesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<ExercisesViewModel>(
       vmBuilder: (context) => ExercisesViewModel(service: ExercisesService()),
-      builder: _buildContent,
+      builder: buildContent,
     );
   }
 
-  Widget _buildContent(BuildContext context, ExercisesViewModel vm) => Scaffold(
+  Widget buildContent(BuildContext context, ExercisesViewModel vm) => Scaffold(
         appBar: AppBar(title: const Text(AppTexts.exercises)),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: AppSpacing.spacingSmall.h, horizontal: AppSpacing.spacingMedium.w),
@@ -31,6 +31,7 @@ class ExercisesScreen extends StatelessWidget {
               : Column(
                   children: [
                     ButtonWidget(
+                      key: Key("AddButton"),
                       text: AppTexts.addExercise,
                       onPressed: () async {
                         var result = await NavigationUtil.navigateToExerciseScreen(context);

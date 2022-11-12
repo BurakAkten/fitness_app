@@ -1,13 +1,7 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:fitness_app/base/constants/app_texts.dart';
 import 'package:fitness_app/base/constants/app_theme.dart';
 import 'package:fitness_app/domain/models/exercise_model.dart';
+import 'package:fitness_app/screens/exercise/exercise_screen.dart';
 import 'package:fitness_app/screens/exercises/exercises_screen.dart';
 import 'package:fitness_app/screens/exercises/exercises_service.dart';
 import 'package:fitness_app/screens/exercises/viewmodels/exercises_viewmodel.dart';
@@ -29,8 +23,6 @@ void main() {
 
   final exercisesFromService = [
     ExerciseModel(id: 1, name: "BarBell Row", setRepeat: 3, setCount: 3, weight: 3, weightCount: 3),
-    ExerciseModel(id: 2, name: "Squat", setRepeat: 3, setCount: 6),
-    ExerciseModel(id: 3, name: "Shoulder Press", setRepeat: 4, setCount: 4, weight: 20, weightCount: 2),
   ];
 
   void arrangeExercisesFromService() {
@@ -57,24 +49,46 @@ void main() {
     );
   }
 
-  testWidgets("AddButton", (WidgetTester tester) async {
+  testWidgets("tab add button", (WidgetTester tester) async {
     arrangeExercisesFromService();
     await tester.pumpWidget(_createTestWidget());
-    expect(find.byKey(Key('AddButton')), findsOneWidget);
-  });
-
-  testWidgets("exercise are displayed", (WidgetTester tester) async {
-    arrangeExercisesFromService();
-
-    await tester.pumpWidget(_createTestWidget());
-
-    await tester.pump();
-
-    for (final e in exercisesFromService) {
-      expect(find.textContaining("${e.name}"), findsOneWidget);
-      if (e.weight != null) expect(find.textContaining("${e.weight} * ${e.weightCount}"), findsOneWidget);
-    }
+    await tester.tap(find.byKey(Key('AddButton')));
 
     await tester.pumpAndSettle();
+
+    expect(find.byType(ExerciseScreen), findsOneWidget);
+    expect(find.byType(ExercisesScreen), findsNothing);
+
+    expect(find.text('Save'), findsOneWidget);
+    expect(find.textContaining('Select Exercise'), findsOneWidget);
+  });
+
+  testWidgets("tab exercise item, open exercise edit screen", (WidgetTester tester) async {
+    arrangeExercisesFromService();
+    await tester.pumpWidget(_createTestWidget());
+    await tester.tap(find.byType(InkWell));
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(ExerciseScreen), findsOneWidget);
+    expect(find.byType(ExercisesScreen), findsNothing);
+
+    expect(find.text('Save'), findsOneWidget);
+    expect(find.textContaining(exercisesFromService.first.setRepeat!.toString(), findRichText: true), findsOneWidget);
+  });
+
+  testWidgets("tab exercise delete", (WidgetTester tester) async {
+    arrangeExercisesFromService();
+    await tester.pumpWidget(_createTestWidget());
+
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining(exercisesFromService.first.name!.toString(), findRichText: true), findsOneWidget);
+
+    await tester.tap(find.textContaining("Delete"));
+
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining(exercisesFromService.first.name!.toString(), findRichText: true), findsNothing);
   });
 }

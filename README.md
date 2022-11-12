@@ -1,16 +1,22 @@
 # fitness_app
 
-A new Flutter project.
+This is a kind of flutter application that shows exercise types that you added. Also you can edit selected exercise fields. 
 
-## Getting Started
+I used MVVM structure for this application because when I separate business logic with ui, every thing is more clean and safe.
 
-This project is a starting point for a Flutter application.
+For ViewModel part I used Provider.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Packages
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+In this application, I used :
+
+    provider: To manage state of application.
+    path_provider: To save exercises in local.
+    sqflite: To save exercises in local as Sql table.
+    flutter_screenutil: To arrange screen scability.
+    fluttertoast: To show toast messages after add and delete exercise.
+    flutter_project_base: To manage state and view in base classes. This is my public repo that I imlemented to use in my projects
+    
+
+
