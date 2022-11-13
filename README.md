@@ -17,6 +17,9 @@ In this application, I used :
     flutter_screenutil: To arrange screen scability.
     fluttertoast: To show toast messages after add and delete exercise.
     flutter_project_base: To manage state and view in base classes. This is my public repo that I imlemented to use in my projects
-    
 
+
+<p>
+<img src="https://raw.githubusercontent.com/BurakAkten/fitness_app/main/resources/fitness.gif" alt="drawing"/> 
+</p>
 
